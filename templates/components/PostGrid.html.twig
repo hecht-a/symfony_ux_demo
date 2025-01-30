@@ -1,0 +1,70 @@
+<div class="PostGrid" {{ attributes.defaults(stimulus_controller('appear')) }}>
+    <div id="results" style="display: flex; gap: 1rem; flex-direction: column;" class="p-4">
+        {% if page > 1 %}
+            <div class="PostGrid_page d-flex gap-2" id="page--{{ page - 1 }}" data-live-ignore="true"></div>
+        {% endif %}
+
+        <div class="PostGrid_page row gap-4 justify-content-center" id="page--{{ page }}" data-live-ignore="true">
+            {% for item in this.posts %}
+                <figure class="col-3 rounded rounded-3 overflow-hidden bsb-overlay-hover m-0 bg-white">
+                    <a
+                        data-action="live#action"
+                        data-live-action-param="openModal"
+                        data-live-post-param="{{ item.post.id }}"
+                    >
+                        <img
+                            class="img-fluid bsb-scale-up bsb-hover-scale"
+                            src="{{ item.post.image }}"
+                            alt="Photography"
+                        >
+                    </a>
+                    <figcaption>
+                        <div class="bsb-hover-fadeInRight">{{ item.post.title }}</div>
+                        <twig:Like id="like-{{ item.id }}" post="{{ item.post }}"
+                                   isLiked="{{ item.post.likedByUser(app.user) }}"/>
+                    </figcaption>
+                </figure>
+            {% endfor %}
+        </div>
+
+        <div style="display: grid; place-content: center;padding-block: 2rem;">
+            {% if this.hasMore %}
+                <button data-action="live#action" data-live-action-param="more" class="PostGrid_more">
+                    Load More
+                </button>
+            {% else %}
+                <span class="code">The End</span>
+            {% endif %}
+        </div>
+    </div>
+
+    {% component Modal with {id: modalPost ? modalPost.id, isModalOpened: isModalOpened} %}
+        {% block modal_header %}
+            <h5 class="modal-title">{{ modalPost ? modalPost.title }}</h5>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                data-action="live#action"
+                data-live-action-param="openModal"
+            ></button>
+        {% endblock %}
+        {% block modal_body %}
+            <img class="img-responsive" style="margin:0 auto;" src="{{ modalPost ? modalPost.image }}" alt="">
+            <div>
+                {{ modalPost ? modalPost.description }}
+            </div>
+        {% endblock %}
+        {% block modal_footer %}
+            <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                data-action="live#action"
+                data-live-action-param="openModal"
+            >Close
+            </button>
+        {% endblock %}
+    {% endcomponent %}
+</div>

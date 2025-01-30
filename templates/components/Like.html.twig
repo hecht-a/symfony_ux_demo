@@ -1,0 +1,23 @@
+<div{{ attributes }}>
+    {% if isLiked %}
+        <button
+            type="button"
+            class="btn border-0"
+            data-action="live#action"
+            data-live-action-param="toggleLike"
+            data-live-type-param="dislike"
+        >
+            <twig:ux:icon name="bx:star" style="width: 2em; height: 2em; color: red;"/>
+        </button>
+    {% else %}
+        <button
+            type="button"
+            class="btn border-0"
+            data-action="live#action"
+            data-live-action-param="toggleLike"
+            data-live-type-param="like"
+        >
+            <twig:ux:icon name="bx:star" style="width: 2em; height: 2em;"/>
+        </button>
+    {% endif %}
+</div>

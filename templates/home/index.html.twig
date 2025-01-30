@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <div class="p-5" style="font-size: 1.3em;">
+        {% set strings = [
+            'Moussteam',
+            'Symfony',
+            'Cerfrance',
+            'PHP',
+        ] %}
+        <span
+            data-controller="symfony--ux-typed"
+            data-symfony--ux-typed-loop-value="true"
+            data-symfony--ux-typed-show-cursor-value="true"
+            data-symfony--ux-typed-cursor-char-value="💩"
+            data-symfony--ux-typed-strings-value="{{ strings|json_encode|e('html_attr') }}"
+        ></span>
+    </div>
+{% endblock %}

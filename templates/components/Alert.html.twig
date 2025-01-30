@@ -1,0 +1,17 @@
+<div {{ attributes }}>
+    {% if type and message %}
+        <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+            <twig:ux:icon name="{{ this.icon }}" class="Icon bi"/>
+            {{ message }}
+        </div>
+    {% endif %}
+
+    <div>
+        <button type="button" class="btn btn-success" data-action="live#action" data-live-action-param="showSuccess">
+            Show Success
+        </button>
+        <button type="button" class="btn btn-danger" data-action="live#action" data-live-action-param="showError">Show
+            Error
+        </button>
+    </div>
+</div>
